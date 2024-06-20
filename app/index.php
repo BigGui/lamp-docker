@@ -45,6 +45,8 @@ if ($_ENV['ENV_TYPE'] === 'dev') {
 else if ($_ENV['ENV_TYPE'] === 'prod') {
     // Production integration for vite with run build
 
+    // Try this way to load assets from manifest.json
+    // https://github.com/andrefelipe/vite-php-setup
 }
     ?>
 </head>
