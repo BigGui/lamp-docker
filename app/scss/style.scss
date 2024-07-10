@@ -1,0 +1,9 @@
+body {
+    background-color: green;
+
+    .class-name {
+        & > a {
+            color: red;
+        }
+    }
+}

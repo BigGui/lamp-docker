@@ -7,9 +7,9 @@ $dotenv->load();
 
 try {
     $dbCo = new PDO(
-        'mysql:host=' . $_ENV['DB_HOST'] . ';dbname=sdbm;charset=utf8',
-        'root',
-        'root_password'
+        'mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_DATABASE'] . ';charset=utf8',
+        $_ENV['DB_USER'],
+        $_ENV['DB_PASSWORD']
     );
     $dbCo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 } catch (Exception $e) {
