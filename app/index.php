@@ -35,19 +35,33 @@ $text = 'Hello World!!!!!';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <?php
-if ($_ENV['ENV_TYPE'] === 'dev') {
-    // Developement integration for vite with run dev
+    if ($_ENV['ENV_TYPE'] === 'dev') {
+        // Developement integration for vite with run dev
     ?>
-<script type="module" src="http://localhost:5173/@vite/client"></script>
-<script type="module" src="http://localhost:5173/js/main.js"></script>
+        <script type="module" src="http://localhost:5173/@vite/client"></script>
+        <script type="module" src="http://localhost:5173/js/main.js"></script>
     <?php
-}
-else if ($_ENV['ENV_TYPE'] === 'prod') {
-    // Production integration for vite with run build
+    } else if ($_ENV['ENV_TYPE'] === 'prod') {
+        // Production integration for vite with run build
 
-    // Try this way to load assets from manifest.json
-    // https://github.com/andrefelipe/vite-php-setup
-}
+        if (file_exists('.vite/manifest.json')) {
+            $assets = json_decode(file_get_contents('.vite/manifest.json'), true);
+            $entry = 'js/main.js';
+            if (array_key_exists($entry, $assets)) {
+                echo '<script type="module" src="' . $assets[$entry]['file'] . '"></script>';
+                if (isset($assets[$entry]['css']) && is_array($assets[$entry]['css'])) {
+                    echo implode(
+                        array_map(
+                            fn ($file) => '<link rel="stylesheet" href="' . $file . '">',
+                            $assets[$entry]['css']
+                        )
+                    );
+                }
+            }
+        }
+        // Try this way to load assets from manifest.json
+        // https://github.com/andrefelipe/vite-php-setup
+    }
     ?>
 </head>
 
