@@ -1,6 +1,7 @@
 <?php
 
 require __DIR__ . '/vendor/autoload.php';
+include 'includes/_functions.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
@@ -43,22 +44,7 @@ $text = 'Hello World!!!!!';
     <?php
     } else if ($_ENV['ENV_TYPE'] === 'prod') {
         // Production integration for vite with run build
-
-        if (file_exists('.vite/manifest.json')) {
-            $assets = json_decode(file_get_contents('.vite/manifest.json'), true);
-            $entry = 'js/main.js';
-            if (array_key_exists($entry, $assets)) {
-                echo '<script type="module" src="' . $assets[$entry]['file'] . '"></script>';
-                if (isset($assets[$entry]['css']) && is_array($assets[$entry]['css'])) {
-                    echo implode(
-                        array_map(
-                            fn ($file) => '<link rel="stylesheet" href="' . $file . '">',
-                            $assets[$entry]['css']
-                        )
-                    );
-                }
-            }
-        }
+        echo loadAssets(['js/main.js']);
         // Try this way to load assets from manifest.json
         // https://github.com/andrefelipe/vite-php-setup
     }
