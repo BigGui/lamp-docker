@@ -35,20 +35,7 @@ $text = 'Hello World!!!!!';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <?php
-    if ($_ENV['ENV_TYPE'] === 'dev') {
-        // Developement integration for vite with run dev
-    ?>
-        <script type="module" src="http://localhost:5173/@vite/client"></script>
-        <script type="module" src="http://localhost:5173/js/main.js"></script>
-    <?php
-    } else if ($_ENV['ENV_TYPE'] === 'prod') {
-        // Production integration for vite with run build
-        echo loadAssets(['js/main.js']);
-        // Try this way to load assets from manifest.json
-        // https://github.com/andrefelipe/vite-php-setup
-    }
-    ?>
+    <?= loadAssets(['js/main.js', 'js/component.js']) ?>
 </head>
 
 <body>

@@ -1,4 +1,10 @@
 {
+  "js/component.js": {
+    "file": "assets/component-C13qsCCn.js",
+    "name": "component",
+    "src": "js/component.js",
+    "isEntry": true
+  },
   "js/main.js": {
     "file": "assets/main-D8qwAZ9D.js",
     "name": "main",

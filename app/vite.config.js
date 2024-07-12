@@ -5,7 +5,7 @@ export default defineConfig({
         manifest: true,
         outDir: '',
         rollupOptions: {
-          input: '/js/main.js', // par exemple: 'src/main.js'
+          input: ['/js/main.js','/js/component.js'] // par exemple: 'src/main.js'
         },
     },
 
