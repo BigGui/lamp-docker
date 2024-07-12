@@ -2,6 +2,7 @@
 
 require __DIR__ . '/vendor/autoload.php';
 include 'includes/_functions.php';
+include 'includes/_templates.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
@@ -16,14 +17,6 @@ try {
 } catch (Exception $e) {
     die('Unable to connect to the database. ' . $e->getMessage());
 }
-
-
-$query = $dbCo->prepare("SELECT article_name, purchase_price FROM article;");
-
-$query->execute();
-
-$result = $query->fetchAll();
-
 
 $text = 'Hello World!!!!!';
 
@@ -45,13 +38,12 @@ $text = 'Hello World!!!!!';
         ?>
     </h1>
     <ul>
-
         <?php
 
+        $query = $dbCo->prepare("SELECT article_name, purchase_price FROM article;");
 
-
-        foreach ($result as $beer) {
-            echo '<li>' . $beer['article_name'] . '  vendu au prix de ' . $beer['purchase_price'] . '</li>';
+        if ($query->execute()) {
+            echo implode(array_map('getHtmlProduct', $query->fetchAll()));
         }
         ?>
     </ul>
